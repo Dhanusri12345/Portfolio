@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dhanusri • Portfolio</title>
+
+  <!-- Font Awesome for social/skill icons -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+  <style>
+    /* ========= Base & Theme ========= */
+    :root{
+      --accent:#fd4646;     /* your red */
+      --ink:#1e1e1e;
+      --muted:#666;
+      --card:#fff;
+      --shadow:0 8px 24px rgba(0,0,0,.08);
+      --radius:18px;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      color:var(--ink); background:#fff; line-height:1.6;
+    }
+    a{color:inherit}
+
+    /* ========= Navbar ========= */
+    .navbar{
+      position:sticky; top:0; z-index:1000;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 10%;
+      background:#fff; box-shadow:0 2px 10px rgba(0,0,0,.04);
+    }
+    .brand{font-size:26px; font-weight:900; letter-spacing:.5px}
+    .brand span{color:var(--accent)}
+    nav ul{display:flex; list-style:none; gap:16px}
+    nav a{
+      text-decoration:none; text-transform:capitalize;
+      padding:6px 8px; border-radius:10px; font-weight:600; transition:.25s;
+    }
+    nav a:hover, nav a.active{color:var(--accent)}
+    .actions{display:flex; align-items:center; gap:12px}
+    .btn{
+      background:var(--accent); color:#fff; border:0; cursor:pointer;
+      padding:8px 14px; border-radius:999px; font-weight:700; transition:.25s;
+    }
+    .btn:hover{filter:brightness(.95); transform:translateY(-1px)}
+    .social a{
+      width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center;
+      border-radius:999px; transition:.25s;
+    }
+    .social a:hover{background:var(--accent); color:#fff; transform:translateY(-2px)}
+
+    /* ========= Sections (layout) ========= */
+    section{padding:70px 10%}
+    .title{font-size:34px; font-weight:900; text-align:center; margin-bottom:28px}
+    .title span{color:var(--accent)}
+
+    /* ========= Home (Hero) ========= */
+    #home{display:grid; grid-template-columns:1.1fr .9fr; align-items:center; gap:40px; padding-top:90px}
+    #home h1{font-size:42px; line-height:1.2; margin-bottom:14px}
+    #home h1 span{color:var(--accent)}
+    #home p{color:var(--muted); max-width:560px}
+    .photo{
+      width:420px; max-width:90vw; aspect-ratio:1/1; border-radius:1000px; overflow:hidden;
+      box-shadow:var(--shadow); margin:0 auto;
+    }
+    .photo img{width:100%; height:100%; object-fit:cover}
+
+    /* ========= About ========= */
+    .about-wrap{display:grid; grid-template-columns:.9fr 1.1fr; gap:40px; align-items:center}
+    .frame{border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow)}
+    .frame img{width:100%; height:100%; object-fit:cover}
+    .about-text h3{font-size:26px; margin-bottom:10px}
+    .about-text p{color:var(--muted); margin-bottom:10px}
+
+    /*======= education =====*/
+    /* Education */
+    .timeline{
+        position:relative;
+        max-width:800px;
+        margin:auto;
+    }
+    .timeline::after{
+        content:'';
+        position:absolute;
+        width:4px;
+        background:rgb(253,70,70);
+        top:0;
+        bottom:0;
+        left:50%;
+        margin-left:-2px;
+    }
+    .container{
+        padding:20px 40px;
+        position:relative;
+        background:inherit;
+        width:50%;
+    }
+    .left{left:0;}
+    .right{left:50%;}
+    .content{
+        padding:20px;
+        background:white;
+        position:relative;
+        border-radius:6px;
+        box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    }
+    .container::after{
+        content:'';
+        position:absolute;
+        width:20px;
+        height:20px;
+        right:-10px;
+        background:white;
+        border:4px solid rgb(253,70,70);
+        top:15px;
+        border-radius:50%;
+        z-index:1;
+    }
+    .right::after{left:-10px;}
+
+    /* ========= Skills ========= */
+    .skills-wrap{max-width:900px; margin:0 auto; display:grid; gap:18px}
+    .skill{
+      background:var(--card); padding:16px; border-radius:14px; box-shadow:var(--shadow);
+    }
+    .skill-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px}
+    .skill-name{font-weight:800; display:flex; align-items:center; gap:10px}
+    .skill-lvl{color:var(--muted); font-size:14px}
+    .bar{width:100%; height:12px; background:#eee; border-radius:999px; overflow:hidden}
+    .fill{height:100%; background:var(--accent); border-radius:999px}
+    .chip-row{display:flex; flex-wrap:wrap; gap:10px}
+    .chip{
+      background:#fff5f5; color:var(--ink); border:1px solid #ffd6d6;
+      padding:8px 14px; border-radius:999px; font-weight:600; font-size:14px; transition:.25s;
+    }
+    .chip:hover{background:var(--accent); color:#fff; border-color:var(--accent); transform:translateY(-2px)}
+    .skill-name i{width:22px; text-align:center}
+    .cert-card{
+      max-width:640px; margin:0 auto; display:flex; align-items:center; gap:18px;
+      background:var(--card); padding:20px 22px; border-radius:14px; box-shadow:var(--shadow);
+    }
+    .cert-card i{font-size:30px; color:var(--accent); width:50px; text-align:center}
+    .cert-card h4{font-size:17px; margin-bottom:4px}
+    .cert-card p{color:var(--muted); font-size:14px}
+    .proj-icon{
+      height:120px; display:flex; align-items:center; justify-content:center;
+      background:#fff5f5; font-size:38px; color:var(--accent);
+    }
+
+    /* ========= Projects ========= */
+    .grid{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px;
+    }
+    .card{
+      background:#fff; border-radius:16px; box-shadow:var(--shadow); overflow:hidden;
+      transition:transform .25s, box-shadow .25s;
+    }
+    .card:hover{transform:translateY(-6px); box-shadow:0 14px 32px rgba(253,70,70,.18)}
+    .card img{width:100%; height:180px; object-fit:cover}
+    .card .body{padding:14px}
+    .card h4{color:var(--accent); font-size:18px; margin-bottom:6px}
+    .card p{color:var(--muted); font-size:14px}
+
+    /* ========= Contact ========= */
+    .contact-wrap{max-width:840px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:24px}
+    form{display:grid; gap:12px}
+    input, textarea{
+      width:100%; padding:12px 14px; border:1px solid #ddd; border-radius:12px; outline:none;
+      transition:border-color .2s, box-shadow .2s; font-size:15px;
+    }
+    input:focus, textarea:focus{border-color:var(--accent); box-shadow:0 0 0 4px rgba(253,70,70,.12)}
+    .big-social{
+      display:flex; align-items:center; justify-content:center; gap:12px; margin-top:8px; flex-wrap:wrap;
+    }
+    .big-social a{
+      width:52px; height:52px; display:inline-flex; align-items:center; justify-content:center;
+      border-radius:14px; background:#f7f7f7; color:var(--ink); font-size:22px; transition:.25s;
+    }
+    .big-social a:hover{background:var(--accent); color:#fff; transform:translateY(-3px)}
+
+    /* ========= Footer ========= */
+    footer{padding:28px 10%; text-align:center; color:#999; font-size:13px; border-top:1px solid #f0f0f0}
+
+    /* ========= Responsive ========= */
+    @media (max-width: 960px){
+      #home, .about-wrap, .contact-wrap{grid-template-columns:1fr}
+      .photo{width:360px}
+      nav ul{display:none}         /* hide links on small screens */
+      .menu-btn{display:inline-flex}
+    }
+    /* Mobile menu (simple) */
+    .menu-btn{
+      display:none; width:38px; height:38px; align-items:center; justify-content:center;
+      border-radius:10px; border:1px solid #eee; cursor:pointer;
+    }
+    .mobile-nav{
+      display:none; position:fixed; top:60px; right:16px; background:#fff; box-shadow:var(--shadow);
+      border-radius:12px; padding:12px; z-index:999;
+    }
+    .mobile-nav a{display:block; padding:8px 12px; text-decoration:none; border-radius:8px}
+    .mobile-nav a + a{margin-top:6px}
+    .mobile-nav a:hover{background:#f7f7f7; color:var(--accent)}
+  </style>
+</head>
+<body>
+
+  <!-- ========== Navbar ========== -->
+  <header class="navbar">
+    <div class="brand"><span>D</span>hanusri</div>
+
+    <nav>
+      <ul>
+        <li><a class="navlink active" href="#home">home</a></li>
+        <li><a class="navlink" href="#about">about</a></li>
+        <li><a class="navlink" href="#education">education</a></li>
+        <li><a class="navlink" href="#skills">skills</a></li>
+        <li><a class="navlink" href="#projects">projects</a></li>
+        <li><a class="navlink" href="#certifications">certifications</a></li>
+        <li><a class="navlink" href="#contact">contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="actions">
+      <div class="social">
+        <!-- Replace # with your real links -->
+        <a href="https://www.linkedin.com/in/dhanusri-g-k-167b652a2/" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://github.com/Dhanusri12345" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="mailto:gkdhanusrikumarakannan@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+      <button class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">hire me</button>
+      <button class="menu-btn" id="menuBtn" aria-label="Open Menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+
+    <!-- Mobile dropdown -->
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#home">home</a>
+      <a href="#about">about</a>
+      <a href="#education">Education</a>
+      <a href="#skills">skills</a>
+      <a href="#projects">projects</a>
+      <a href="#certifications">certifications</a>
+      <a href="#contact">contact</a>
+    </div>
+  </header>
+
+  <!-- ========== Home ========== -->
+  <section id="home">
+    <div>
+      <h1>I'm <span>Dhanusri</span></h1>
+      <p>
+        Motivated Computer Science student with a strong foundation in programming, web development, AI/ML, deep learning, and model training.
+        Hands-on experience in NLP-based sentiment analysis and CNN-based medical image classification — always looking to learn and contribute to innovative projects.
+      </p>
+      <div style="margin-top:16px; display:flex; gap:10px;">
+        <a class="btn" href="#contact">download cv</a>
+        <a class="btn" style="background:#1f1f1f" href="#projects">view projects</a>
+      </div>
+    </div>
+
+    <div class="photo">
+      <!-- Replace with your photo -->
+      <img src="images/profile.jpg" alt="Dhanusri profile"/>
+    </div>
+  </section>
+
+  <!-- ========== About ========== -->
+  <section id="about">
+    <h2 class="title">About <span>Me</span></h2>
+
+    <div class="about-wrap">
+      <div class="frame">
+        <img src="images/profile.jpg" alt="About portrait"/>
+      </div>
+      <div class="about-text">
+        <h3>Hello! I’m Dhanusri</h3>
+        <p>I am currently pursuing my B.E. in Computer Science and Engineering at Nandha Engineering College, Erode, with a CGPA of 8.48. I have a strong foundation in programming, web development (HTML, CSS, JavaScript, React), and Java, along with basics of MySQL.</p>
+        <p>I have hands-on experience in AI/ML, deep learning, NLP, and model training — including an NLP-based sentiment analysis system and a CNN-based diabetic retinopathy detection system. I also work with Tableau and Power BI for data visualization, and I'm continuously learning and upgrading my skills to build efficient, real-world applications.</p>
+        <div style="margin-top:10px;">
+          <button class="btn" onclick="document.getElementById('skills').scrollIntoView({behavior:'smooth'})">my skills</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--=========== education=====-->
+  <section id="education">
+    <h2 class="title">E<span>ducation</span></h2>
+    <div class="timeline">
+        <div class="container">
+            <div class="content">
+                <h3>Higher Secondary Certificate (HSC)</h3>
+                <p>Amala Matric Hr. Sec. School, Gobichettipalayam</p>
+                <p>2021 – 2023 · Percentage: 86.83%</p>
+            </div>
+        </div>
+        <div class="container right">
+            <div class="content">
+                <h3>BE Computer Science and Engineering</h3>
+                <p>Nandha Engineering College, Erode</p>
+                <p>2023 – 2027 · CGPA: 8.48</p>
+            </div>
+        </div>
+        <div class="container left">
+            <div class="content">
+                <h3>Web Development Intern</h3>
+                <p>CodeBind Technologies</p>
+                <p>Jun 2025 – Jul 2025</p>
+            </div>
+        </div>
+    </div>
+</section>
+  <!-- ========== Skills ========== -->
+  <section id="skills">
+    <h2 class="title">My <span>Skills</span></h2>
+
+    <div class="skills-wrap">
+      <div class="skill">
+        <div class="skill-head">
+          <div class="skill-name"><i class="fa-solid fa-code" style="color:#fd4646"></i> Programming &amp; Web</div>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Java</span>
+          <span class="chip">MySQL (Basics)</span>
+          <span class="chip">HTML</span>
+          <span class="chip">CSS</span>
+          <span class="chip">JavaScript</span>
+          <span class="chip">React</span>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-head">
+          <div class="skill-name"><i class="fa-solid fa-brain" style="color:#fd4646"></i> AI / ML</div>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Machine Learning</span>
+          <span class="chip">Deep Learning</span>
+          <span class="chip">NLP</span>
+          <span class="chip">Model Training</span>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-head">
+          <div class="skill-name"><i class="fa-solid fa-chart-simple" style="color:#fd4646"></i> Data Visualization</div>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Tableau</span>
+          <span class="chip">Power BI</span>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-head">
+          <div class="skill-name"><i class="fa-solid fa-diagram-project" style="color:#fd4646"></i> Core Concepts</div>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Data Structures</span>
+          <span class="chip">Linked List (Basics)</span>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-head">
+          <div class="skill-name"><i class="fa-brands fa-git-alt" style="color:#fd4646"></i> Tools &amp; Technologies</div>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Git</span>
+          <span class="chip">GitHub</span>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-head">
+          <div class="skill-name"><i class="fa-solid fa-comments" style="color:#fd4646"></i> Soft Skills</div>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Communication</span>
+          <span class="chip">Time Management</span>
+          <span class="chip">Adaptability</span>
+          <span class="chip">Decision Making</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Projects ========== -->
+  <section id="projects">
+    <h2 class="title">My <span>Projects</span></h2>
+
+    <div class="grid">
+      <article class="card">
+        <div class="proj-icon"><i class="fa-solid fa-comment-dots"></i></div>
+        <div class="body">
+          <h4>Sentiment Analysis of E-Consultation Feedback</h4>
+          <p>Developed an NLP-based sentiment analysis system using the VADER model for classifying E-Consultation feedback.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="proj-icon"><i class="fa-solid fa-eye"></i></div>
+        <div class="body">
+          <h4>Automated Diabetic Retinopathy Detection System</h4>
+          <p>Developed an AI-based retinal image analysis system using the ConvNeXt-Tiny deep learning model for detecting and classifying diabetic retinopathy stages from fundus images.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="proj-icon"><i class="fa-solid fa-notes-medical"></i></div>
+        <div class="body">
+          <h4>Online Doctor Appointment Booking System</h4>
+          <p>Built a full-stack web application using the MERN stack that enables users to check doctor availability, select time slots, and book appointments efficiently.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========== Certifications ========== -->
+  <section id="certifications">
+    <h2 class="title">C<span>ertifications</span></h2>
+    <div class="cert-card">
+      <i class="fa-solid fa-cloud"></i>
+      <div>
+        <h4>Cloud Computing</h4>
+        <p>NPTEL Certification</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Contact ========== -->
+  <section id="contact">
+    <h2 class="title">Contact <span>Me</span></h2>
+
+    <h3 class="title">Get in Touch</h3>
+
+    <div class="contact-wrap">
+      <form onsubmit="alert('Thanks! I will get back to you.'); return false;">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea rows="5" name="message" placeholder="Your Message" required></textarea>
+        <button class="btn" type="submit">Send Message</button>
+      </form>
+
+      <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; text-align:center;">
+        <p style="color:var(--muted)">Prefer email or DMs?</p>
+        <div class="big-social">
+          <!-- replace # and email -->
+          <a href="https://www.linkedin.com/in/dhanusri-g-k-167b652a2/" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://github.com/Dhanusri12345" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="mailto:gkdhanusrikumarakannan@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+          <a href="tel:+919042991131" aria-label="Phone"><i class="fa-solid fa-phone"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2025 Dhanusri. All rights reserved.</footer>
+
+  <!-- ========== Small JS: active nav + mobile menu ========== -->
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    if(menuBtn){
+      menuBtn.addEventListener('click', () => {
+        mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block';
+      });
+    }
+
+    // Highlight active nav link while scrolling
+    const links = document.querySelectorAll('.navlink');
+    const sections = [...links].map(a => document.querySelector(a.getAttribute('href')));
+
+    const onScroll = () => {
+      const pos = window.scrollY + 120; // offset for sticky nav
+      sections.forEach((sec, i) => {
+        if(!sec) return;
+        const top = sec.offsetTop, bottom = top + sec.offsetHeight;
+        if(pos >= top && pos < bottom){
+          links.forEach(l => l.classList.remove('active'));
+          links[i].classList.add('active');
+        }
+      });
+    };
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+  </script>
+</body>
+</html>
